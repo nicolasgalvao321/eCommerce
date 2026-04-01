@@ -1,0 +1,264 @@
+/* --- CONFIGURAÇÕES GERAIS --- */
+body { 
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: #0b0d0f;
+    margin: 0;
+    color: #e2e4e9;
+}
+
+header {
+    background: #0b0d0f;
+    border-bottom: 1px solid #1f2227;
+    padding: 10px 5%; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* --- GRID DE PRODUTOS (HOME) --- */
+.container { 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 40px; 
+}
+
+.card { 
+    background: #15181c;
+    padding: 25px;
+    border-radius: 16px;
+    border: 1px solid #23272e;
+    text-align: left;
+    transition: all 0.4s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: #9d50ff;
+    box-shadow: 0 10px 30px rgba(157, 80, 255, 0.15);
+}
+
+.card h3 { color: #ffffff; margin: 15px 0 5px 0; font-size: 1.1rem; }
+.card p { color: #9499a3; font-size: 0.9rem; line-height: 1.5; }
+
+/* --- BOTÕES GERAIS --- */
+.btn, .btn-sidebar {
+    background: #9d50ff;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 90%;
+    margin: 10px auto;
+    display: block;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.btn:hover, .btn-sidebar:hover {
+    background: #b175ff;
+    box-shadow: 0 0 25px rgba(157, 80, 255, 0.4);
+}
+
+/* --- PAINEL ADMINISTRATIVO (CADASTRO) --- */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 5%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #1f2227;
+}
+
+.admin-header h1 { margin: 0; font-size: 1.8rem; color: white; }
+
+.header-right { display: flex; gap: 15px; }
+
+.admin-panel {
+    background: #1a1d23;
+    padding: 40px;
+    margin: 40px auto;
+    max-width: 1200px;
+    border-radius: 24px;
+    border: 1px solid #2d333b;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.admin-panel input {
+    background: #0b0d0f;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    border: 1px solid #30363d;
+    color: white;
+    width: calc(100% - 32px);
+    outline: none;
+    transition: 0.3s;
+}
+
+.admin-panel input:focus { border-color: #9d50ff;
+     background: #12141a; }
+
+/* --- LISTA DE GESTÃO (PRODUTOS EXISTENTES) --- */
+.card-gestao {
+    background: #1a1d23;
+    border: 1px solid #2d333b;
+    padding: 20px;
+    margin: 10px 5%;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.card-gestao:hover { border-color: #9d50ff; }
+
+.info-gestao strong { color: white; font-size: 1.1rem; display: block; }
+.info-gestao span { color: #9499a3; font-size: 0.9rem; }
+
+/* --- BOTÕES ESPECÍFICOS DO ADM --- */
+.btn-novo {
+    background: #9d50ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    /* Brilho neon roxo */
+    box-shadow: 0 0 15px rgba(157, 80, 255, 0.4);
+}
+
+.btn-sair {
+    background: transparent;
+    color: #9499a3;
+    border: 1px solid #2d333b;
+    padding: 10px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-sair:hover, .btn-excluir:hover {
+    background: #2a1a1c;
+    color: #ff5f6d;
+    border-color: #4a2a2d;
+}
+
+.btn-editar {
+    background: #9d50ff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.btn-excluir {
+    background: #1a1d23;
+    color: #9499a3;
+    border: 1px solid #2d333b;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* --- SIDEBAR, BUSCA E MODAL --- */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 2000; /* Acima de tudo */
+    top: 0;
+    left: 0;
+    background-color: #12141a; /* Um pouco mais escuro que o fundo */
+    overflow-x: hidden;
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding-top: 60px;
+    border-right: 1px solid #1f2227;
+}
+
+#busca {
+    background: #15181c; border: 1px solid #23272e; color: white;
+    padding: 12px 25px; border-radius: 30px; width: 100%; outline: none;
+}
+
+#busca:focus { border-color: #9d50ff; box-shadow: 0 0 10px rgba(157, 80, 255, 0.2); }
+
+.modal-content {
+    background: #15181c; border: 1px solid #23272e;
+    border-radius: 20px; color: white; padding: 20px;
+}
+
+.btn-novo:hover {
+    background: #b175ff;
+    box-shadow: 0 0 25px rgba(157, 80, 255, 0.8);
+    transform: scale(1.05);
+}
+
+.btn-cancelar {
+    background: transparent;
+    color: #ff5f6d;
+    border: 1px solid #4a2a2d;
+    padding: 12px;
+    width: 100%; /* Para alinhar com o botão de confirmar */
+    display: block;
+    margin-top: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.btn-cancelar:hover {
+    background: #2a1a1c;
+    box-shadow: 0 0 10px rgba(255, 95, 109, 0.2);
+}
+
+.sidebar-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.sidebar h3 {
+    color: white;
+    margin-bottom: 30px;
+    font-size: 1.2rem;
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: #9d50ff;
+    padding: 10px;
+    transition: 0.3s;
+}
+
+.menu-icon:hover {
+    color: #b175ff;
+}
+
+.btn-cancelar-admin {
+    background: #2a1a1c !important; /* Fundo vinho escuro */
+    color: #ff5f6d !important;      /* Texto avermelhado */
+    border: 1px solid #4a2a2d !important;
+    padding: 12px 25px;
+    width: 100%;                   /* Ocupa a largura do painel */
+    border-radius: 50px;           /* Formato pílula padrão */
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 10px;
+    display: none;                 /* Começa escondido */
+    transition: 0.3s;
+}
+
+.btn-cancelar-admin:hover {
+    background: #3d2427 !important;
+    box-shadow: 0 0 15px rgba(255, 95, 109, 0.2);
+}

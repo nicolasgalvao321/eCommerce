@@ -1,0 +1,185 @@
+<!DOCTYPE html> <!-- Define o tipo do documento como HTML5 -->
+<html lang="pt-br"> <!-- Define o idioma da página como português do Brasil -->
+
+<head>
+    <meta charset="UTF-8"> <!-- Define a codificação de caracteres (acentos, etc.) -->
+    <title>Painel Administrativo</title> <!-- Título da aba do navegador -->
+    <link rel="stylesheet" href="style.css"> <!-- Importa o arquivo de estilos CSS -->
+</head>
+
+<body>
+
+    <!-- Cabeçalho do painel -->
+    <div class="admin-header">
+        <h1>Gestão de Estoque</h1> <!-- Título principal -->
+
+        <div class="header-right">
+            <!-- Botão para abrir formulário de novo produto -->
+            <button class="btn-novo" onclick="abrirNovoProduto()">
+                + Novo Produto
+            </button>
+
+            <!-- Botão para sair do painel e voltar para index -->
+            <button class="btn-sair" onclick="window.location.href='index.html'">
+                Sair do Painel
+            </button>
+        </div>
+    </div>
+
+    <!-- Painel de cadastro/edição -->
+    <div class="admin-panel" id="painel-cadastro">
+
+        <!-- Título dinâmico -->
+        <h3 id="titulo-painel">Cadastrar Novo Produto</h3>
+
+        <!-- Campo escondido para armazenar ID -->
+        <input type="hidden" id="id-prod">
+
+        <!-- Campos do formulário -->
+        <input type="text" id="nome-prod" placeholder="Nome">
+        <input type="number" id="preco-prod" placeholder="Preço">
+        <input type="text" id="desc-prod" placeholder="Legenda">
+        <input type="text" id="img-prod" placeholder="Link da Imagem">
+        <input type="number" id="estoque-prod" placeholder="Qtd Estoque">
+
+        <!-- Botão que muda entre cadastrar e editar -->
+        <button class="btn" id="btn-salvar" onclick="cadastrarProduto()">
+            Salvar Novo Produto
+        </button>
+
+        <!-- Botão de cancelar edição -->
+        <button id="btn-cancelar" class="btn-cancelar-admin" onclick="limparFormulario()">
+            Cancelar Edição
+        </button>
+    </div>
+
+    <!-- Título da lista -->
+    <h3 style="margin-left: 5%;">Produtos Ativos na Loja</h3>
+
+    <!-- Container onde os produtos serão inseridos -->
+    <div id="lista-gestao"></div>
+
+    <!-- Importa script externo -->
+    <script src="script.js"></script>
+
+    <script>
+        // Executa automaticamente quando a página carrega
+        window.onload = carregarGestaoProdutos;
+
+        // Função para buscar produtos da API
+        async function carregarGestaoProdutos() {
+            try {
+                // Faz requisição GET para o backend
+                const resposta = await fetch('http://localhost:8080/api/products');
+
+                // Converte resposta para JSON
+                const produtos = await resposta.json();
+
+                // Seleciona o container da lista
+                const lista = document.getElementById('lista-gestao');
+
+                // Limpa a lista antes de renderizar novamente
+                lista.innerHTML = '';
+
+                // Percorre todos os produtos
+                produtos.forEach(p => {
+
+                    // Adiciona HTML dinamicamente
+                    lista.innerHTML += `
+                        <div class="card-gestao">
+
+                            <!-- Informações do produto -->
+                            <div class="info-gestao">
+                                <strong>${p.name}</strong>
+                                <span>
+                                    R$ ${p.price.toFixed(2)} | Estoque: ${p.stock}
+                                </span>
+                            </div>
+
+                            <!-- Botões de ação -->
+                            <div class="acoes-gestao">
+
+                                <!-- Botão editar -->
+                                <button class="btn-editar"
+                                    onclick="prepararEdicao(${p.id}, '${p.name}', ${p.price}, '${p.description}', '${p.image_url}', ${p.stock})">
+                                    ✏️ Editar
+                                </button>
+
+                                <!-- Botão excluir -->
+                                <button class="btn-excluir"
+                                    onclick="deletarProduto(${p.id})">
+                                    🗑️ Excluir
+                                </button>
+
+                            </div>
+                        </div>
+                    `;
+                });
+
+            } catch (erro) {
+                // Mostra erro no console
+                console.error("Erro ao carregar produtos:", erro);
+            }
+        }
+
+        // Preenche formulário para edição
+        function prepararEdicao(id, nome, preco, desc, img, estoque) {
+
+            // Preenche os campos com os dados do produto
+            document.getElementById('id-prod').value = id;
+            document.getElementById('nome-prod').value = nome;
+            document.getElementById('preco-prod').value = preco;
+            document.getElementById('desc-prod').value = desc;
+            document.getElementById('img-prod').value = img;
+            document.getElementById('estoque-prod').value = estoque;
+
+            // Altera título do painel
+            document.getElementById('titulo-painel').innerText =
+                "Editando Produto: " + nome;
+
+            // Altera texto do botão
+            document.getElementById('btn-salvar').innerText =
+                "Confirmar Alteração";
+
+            // Troca a função do botão salvar para edição
+            document.getElementById('btn-salvar').onclick = confirmarEdicao;
+
+            // Mostra botão cancelar
+            document.getElementById('btn-cancelar').style.display = "block";
+
+            // Faz scroll suave para o topo
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Prepara formulário para novo produto
+        function abrirNovoProduto() {
+
+            // Limpa todos os campos
+            document.getElementById('id-prod').value = '';
+            document.getElementById('nome-prod').value = '';
+            document.getElementById('preco-prod').value = '';
+            document.getElementById('desc-prod').value = '';
+            document.getElementById('img-prod').value = '';
+            document.getElementById('estoque-prod').value = '';
+
+            // Atualiza título
+            document.getElementById('titulo-painel').innerText =
+                "Cadastrar Novo Produto";
+
+            // Atualiza botão
+            document.getElementById('btn-salvar').innerText =
+                "Salvar Novo Produto";
+
+            // Volta função para cadastrar
+            document.getElementById('btn-salvar').onclick = cadastrarProduto;
+
+            // Esconde botão cancelar
+            document.getElementById('btn-cancelar').style.display = "none";
+
+            // Scroll para o topo
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html> <!-- Define o tipo do documento como HTML5 -->
+<html lang="pt-br"> <!-- Início do documento HTML e define o idioma como português do Brasil -->
+
+<head> <!-- Início do cabeçalho da página -->
+    <meta charset="UTF-8"> <!-- Define a codificação de caracteres (UTF-8 suporta acentos) -->
+    <title>Perdidos</title> <!-- Título da página que aparece na aba do navegador -->
+    <link rel="stylesheet" href="style.css"> <!-- Importa o arquivo de estilos CSS -->
+</head> <!-- Fim do cabeçalho -->
+
+<body> <!-- Início do corpo da página (conteúdo visível) -->
+
+    <header> <!-- Cabeçalho da página -->
+        <div class="menu-icon" onclick="toggleSidebar()">☰</div> <!-- Ícone de menu que chama a função toggleSidebar ao clicar -->
+        <h1>E-commerce dos Perdidos</h1> <!-- Título principal da página -->
+
+        <div class="search-container"> <!-- Container da barra de pesquisa -->
+            <input type="text" id="busca" placeholder="O que você está procurando?" onkeyup="filtrarProdutos()"> <!-- Campo de texto para busca que chama a função filtrarProdutos ao digitar -->
+        </div>
+
+        <div id="cart" onclick="abrirModal()" style="cursor:pointer">🛒 Itens: 0</div> <!-- Carrinho de compras que abre o modal ao clicar -->
+    </header> <!-- Fim do cabeçalho -->
+
+
+    <div id="sidebar" class="sidebar" onmouseleave="fecharSidebar()"> <!-- Barra lateral que fecha quando o mouse sai -->
+        <div class="sidebar-content"> <!-- Conteúdo da sidebar -->
+            <h3>Menu</h3> <!-- Título do menu -->
+            <button class="btn-sidebar" onclick="irParaLogin()">Entrar como ADM</button> <!-- Botão que chama função para ir para login -->
+        </div>
+    </div>
+
+    <div class="container" id="lista-produtos"></div> <!-- Container onde os produtos serão exibidos dinamicamente -->
+
+    <div id="modal-checkout" class="modal"> <!-- Modal de finalização de compra -->
+        <div class="modal-content"> <!-- Conteúdo interno do modal -->
+            <h2>Finalizar Compra</h2> <!-- Título do modal -->
+            <div id="itens-carrinho"></div> <!-- Área onde os itens do carrinho serão listados -->
+            <p><strong>Total: R$ <span id="valor-total">0.00</span></strong></p> <!-- Exibe o valor total da compra -->
+            <button class="btn" onclick="processarPagamento()">Confirmar Pagamento</button> <!-- Botão que chama função de pagamento -->
+            <button class="btn-cancelar" onclick="fecharModal()">Voltar</button> <!-- Botão para fechar o modal -->
+        </div>
+    </div>
+
+    <div id="sidebar" class="sidebar" onmouseleave="fecharSidebar()"> <!-- (Duplicado) Outra sidebar com mesmo ID -->
+        <div class="sidebar-content"> <!-- Conteúdo da sidebar -->
+            <h3>Menu</h3> <!-- Título do menu -->
+            <button class="btn-sidebar" onclick="irParaLogin()">Entrar como ADM</button> <!-- Botão de login ADM -->
+        </div>
+    </div>
+    
+    <script src="script.js"></script> <!-- Importa o arquivo JavaScript -->
+</body> <!-- Fim do corpo -->
+</html> <!-- Fim do documento HTML -->
